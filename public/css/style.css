@@ -1,6 +1,25 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+       /* padding-top: .1rem;  
+            /*padding-bottom: .4rem;
+ /* 👈 Ye line add karo */
+
+}
 body {
 font-family:"Plus Jakarta Sans", sans-serif ;
 }
+
 /* navbar*/
 .navbar{
     height: 5rem;
@@ -43,11 +62,11 @@ font-family:"Plus Jakarta Sans", sans-serif ;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: space-evenly;
+align-content: space-evenly;
 }
 
 /*Cards*/
-.card {
+.listing-card {
     border: none !important;
     margin-bottom: 2rem;
 }
@@ -96,4 +115,27 @@ font-family:"Plus Jakarta Sans", sans-serif ;
 .show-card{
     padding-left: 0;
     padding-right: 0;
+}
+#map{
+    height: 400;
+    width: 80vh;
+}
+
+.like-btn {
+  border: 1px solid #dc3545;
+  background: transparent;
+  color: #dc3545;
+  border-radius: 0;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.like-btn:hover {
+  background: #dc3545;
+  color: white;
+}
+
+.like-btn:focus {
+  box-shadow: none !important;
+  outline: none !important;
 }

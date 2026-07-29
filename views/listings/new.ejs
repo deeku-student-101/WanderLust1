@@ -2,7 +2,7 @@
 <div class="row mb-3">
   <div class="col-8 offset-2">
   <h3>Create a New Listing</h3>
-    <form method="POST" action="/listings" novalidate class="needs-validation">
+    <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
       <div class="mb-3">
         <lable for="title" class="form-label">Title</lable>
       <input name="listing[title]" placeholder="Add a catch title" type="text" class="form-control" required/>
@@ -20,19 +20,22 @@
   </div>
 </div>
 
- <div class="mb-3">
-        <lable for="image" class="form-label">Image</lable>
-      <input
-        name="listing[image][url]"
-        placeholder="enter image URL/Link"
-        type="text"
-        class="form-control"
-      />
+ 
+
+<div class="mb-3">
+        <lable for="image" class="form-label">Upload Listing Image</lable>
+     <input
+  name="listing[image]"
+  type="file"
+  class="form-control"
+  required
+/>
  </div>
+
  <div class="row">
   <div class="mb-3 col-md-4">
         <lable for="price" class="form-label">Price</lable>
-      <input name="listing[price]" placeholder="1200 price" type="number" class="form-control" required />
+      <input name="listing[price]" placeholder="price" class="form-control" required />
       <div class="invalid-feedback">Price sholud be valid</div>
 </div>
  <div class="mb-3 col-md-8">
@@ -54,6 +57,26 @@
             <div class="invalid-feedback">Location sholud be valid</div>
 
 </div>
+
+
+
+<div class="mb-3">
+  <label for="category" class="form-label">Category</label>
+
+  <select name="listing[category]" class="form-control" required>
+    <option value="">Select Category</option>
+    <option value="Trending">Trending</option>
+    <option value="Beach">Beach</option>
+    <option value="Room">Room</option>
+    <option value="Amazing view">Amazing view</option>
+    <option value="Ice skating">Ice skating</option>
+    <option value="Historical home">Historical home</option>
+    <option value="Winterside">Winterside</option>
+    <option value="Amazing pool">Amazing pool</option>
+    <option value="Tree house">Tree house</option>
+  </select>
+</div>
+
  <button class="btn btn-dark add-btn mt-3 ">Add</button>
     </form>
   </div>

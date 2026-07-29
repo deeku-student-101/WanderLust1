@@ -1,0 +1,116 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-0">
+
+    <!-- Heading -->
+<div class="text-center" style="margin-top: 1px;">
+        <h2>🏨 Book Your Stay</h2>
+        <p class="text-muted">Complete your booking details below</p>
+    </div>
+
+    <div class="row justify-content-center">
+
+        <!-- LEFT SIDE (Listing Info) -->
+        <div class="col-md-6 mb-3">
+
+            <div class="card shadow-sm">
+
+                <img
+                    src="<%= listing.image.url %>"
+                    class="card-img-top"
+                    style="height: 300px; object-fit: cover;"
+                >
+
+                <div class="card-body">
+
+                    <h4 class="card-title">
+                        <%= listing.title %>
+                    </h4>
+
+                    <p class="text-muted">
+                        📍 <%= listing.location %>, <%= listing.country %>
+                    </p>
+
+                    <h5 class="text-success">
+                        ₹ <%= listing.price.toLocaleString("en-IN") %> / night
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE (FORM) -->
+        <div class="col-md-5">
+
+            <div class="card shadow-sm p-4">
+
+                <form action="/bookings" method="POST">
+
+                    <!-- Listing ID -->
+                    <input
+                        type="hidden"
+                        name="listing"
+                        value="<%= listing._id %>"
+                    >
+
+                    <!-- Check In -->
+                    <div class="mb-3">
+                        <label class="form-label">Check In</label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            name="checkIn"
+                            required
+                        >
+                    </div>
+
+                    <!-- Check Out -->
+                    <div class="mb-3">
+                        <label class="form-label">Check Out</label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            name="checkOut"
+                            required
+                        >
+                    </div>
+
+                    <!-- Guests -->
+                    <div class="mb-3">
+                        <label class="form-label">Guests</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            name="guests"
+                            value="1"
+                            min="1"
+                            required
+                        >
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="mb-3">
+                        <label class="form-label">Payment Method</label>
+                        <select class="form-select" name="paymentMethod">
+                            <option value="Online">💳 Online Payment</option>
+                            <option value="Cash on Check-in">💵 Cash on Check-in</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit -->
+                    <button class="btn btn-success w-100">
+                        📅 Confirm Booking
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

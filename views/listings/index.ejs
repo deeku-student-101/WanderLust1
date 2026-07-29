@@ -1,24 +1,167 @@
 <% layout("/layouts/boilerplate")%>
-
-    <h3>All Listings</h3>
+    <!--<h3>All Listings</h3>-->
     <!--<form method="GET" action="/listings/new">
       <button>Create New Listing</button
     </form>>-->
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% if (allListings.length === 0) { %>
+  <h3>No listings found</h3>
+<% } %>
+    <style> 
+#filters{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filter{
+  text-align: center;
+  margin-right: 2rem;
+  margin-top: 2rem;
+  opacity: 0.7;
+}
+.filter:hover{
+  opacity: 1;
+  cursor: pointer;
+}
+.filter p{
+font-size: 0.8rem;
+}
+.filter{
+  text-decoration: none;
+  color: #222222;
+}
+.tax-info{
+  display: none;
+}
+.tax-toggle{
+  border: 1px solid black;
+  border-radius: 1rem;
+  height: 3.25rem;
+  padding:1rem ;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+    </style>
+    <div  id="filters">
+        <a href= "/listings/category/Trending" class="filter">
+          <div><i class="fa-solid fa-fire"></i></div>
+          <p>Trending</p>
+        </a>
+<a href= "/listings/category/Room" class="filter">
+          <div><i class="fa-solid fa-bed"></i></div>
+          <p>Room</p>
+</a>
+<a href="/listings/category/Beach" class="filter">
+  <div><i class="fa-solid fa-umbrella"></i></div>
+  <p>Beach</p>
+</a>
+<a href= "/listings/category/Amazing view" class="filter">
+          <div><i class="fa-solid fa-street-view"></i></div>
+          <p>Amazing view</p>
+</a>
+
+        <a href= "/listings/category/Ice skating" class="filter">
+          <div><i class="fa-solid fa-person-skiing"></i></div>
+          <p>Ice skating</p>
+        </a>
+
+
+        <a href= "/listings/category/Historical home" class="filter">
+          <div><i class="fa-solid fa-landmark-flag"></i></div>
+          <p>Historical home</p>
+        </a>
+
+
+
+        <a href= "/listings/category/Winterside" class="filter">
+          <div><i class="fa-solid fa-snowflake"></i></div>
+          <p>Winterside</p>
+        </a>
+
+
+        <a href= "/listings/category/Amazing pool" class="filter">
+          <div><i class="fa-solid fa-person-swimming"></i></div>
+          <p>Amazing pool</p>
+        </a>
+
+
+
+        <a href= "/listings/category/Tree house" class="filter">
+          <div><i class="fa-solid fa-tree-city"></i></div>
+          <p>Tree house</p>
+        </a>
+
+<div class="tax-toggle">
+  <div class="form-check-reverse form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+  <label class="form-check-label" for="switchCheckDefault">Display Taxes</label>
+</div>
+</div>
+
+
+    </div>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
          <% for(let listing of allListings) { %>
             <a href="/listings/<%= listing._id%>" class="listing-link">
-<div class="card col" >
-<img src="<%= listing.image.url %>"  class="card-img-top" alt="listing_image" style="height: 20rem;">
+<div class="card col listing-card">
 
-  <div class="card-img-overlay">abc</div>
+  <!-- IMAGE CLICK -->
+  <img 
+    src="<%= listing.image.url %>"  
+    class="card-img-top"
+    style="height:20rem; object-fit:cover; cursor:pointer;"
+    onclick="window.location='/listings/<%= listing._id %>'"
+  >
+
   <div class="card-body">
-    <p class="card-text">
-       <b><%= listing.title %><br/></b> 
-         &#8377;<%= listing.price.toLocaleString("en-IN") %> / night
-    </p>
+
+<div style="display:flex; justify-content:space-between; align-items:flex-start; margin-top:8px;">
+      <b><%= listing.title %></b>
+
+      <!-- ❤️ LIKE BUTTON -->
+      <form method="POST"
+            action="/listings/<%= listing._id %>/like"
+            style="margin:0;">
+        <button class="btn btn-sm like-btn">
+          ❤️ <%= listing.likes?.length || 0 %>
+        </button>
+      </form>
+
+    </div>
+
+    <div style="display:flex; justify-content:space-between; margin:0.3rem;">
+
+      <span>
+        &#8377;<%= listing.price.toLocaleString("en-IN") %> /night
+      </span>
+
+      <i class="tax-info">+18% GST</i>
+
+    </div>
+
   </div>
+
 </div>
 </a>
 <% } %>
 </div>
      
+<script>
+let taxSwitch = document.getElementById("switchCheckDefault");
+
+taxSwitch.addEventListener("click", () => {
+
+    let taxInfo = document.getElementsByClassName("tax-info");
+
+    for (let info of taxInfo) {
+
+        if (info.style.display === "inline") {
+            info.style.display = "none";
+        } else {
+            info.style.display = "inline";
+        }
+
+    }
+});
+</script>

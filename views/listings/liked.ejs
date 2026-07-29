@@ -1,0 +1,54 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+.card,
+.card img,
+.card-img-top {
+  border-radius: 0 !important;
+}
+
+
+.card-img-top {
+  height: 18rem;
+  object-fit: cover;
+}
+</style>
+
+<h2>❤️ Liked Listings</h2>
+
+<% if(allListings.length === 0) { %>
+  <p>No liked listings yet</p>
+<% } %>
+
+<div class="row mt-3">
+
+  <% allListings.forEach(listing => { %>
+
+    <div class="card col-4 mb-3">
+<img 
+  src="<%= listing.image.url %>" 
+  class="card-img-top"
+  style="height: 18rem; object-fit: cover; display:block;"
+>
+
+      <div class="card-body">
+
+        <h5 class="card-title">
+          <%= listing.title %>
+        </h5>
+
+        <p class="card-text">
+          ₹ <%= listing.price.toLocaleString("en-IN") %>
+        </p>
+
+        <a href="/listings/<%= listing._id %>" class="btn btn-dark btn-sm">
+          View
+        </a>
+
+      </div>
+
+    </div>
+
+  <% }) %>
+
+</div>

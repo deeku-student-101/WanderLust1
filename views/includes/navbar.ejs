@@ -1,21 +1,112 @@
+<style>
+.btn-search {
+  background-color: #fe424d;
+  color: #fff;
+  padding: 0.3rem 1rem;
+  font-size: 0.85rem;
+  border-radius: 5px;
+}
+
+.btn-search:hover {
+  background-color: #fe424d;
+  color: #fff;
+}
+
+.btn-search i {
+  display: inline;
+  margin-right: 0.5rem;
+}
+
+.search-input {
+  width: 140px;
+  font-size: 0.85rem;
+  padding: 0.5rem 2rem 0.5rem 3rem;
+}
+</style>
+
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a>
-    <button 
-    class="navbar-toggler" 
-    type="button" 
-    data-bs-toggle="collapse" 
-    data-bs-target="#navbarNavAltMarkup" 
-    >
 
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!-- Left -->
       <div class="navbar-nav">
-        <a class="nav-link " href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listing</a>
-        <a class="nav-link" href="/listings/new">Add New Listing</a>
+        <a class="nav-link" href="/listings">Explore</a>
       </div>
+
+      <!-- Search Bar (Only Listings Page) -->
+      <div class="navbar-nav ms-auto">
+
+        <% if (currRoute === "/listings") { %>
+
+          <form class="d-flex" role="search" method="GET" action="/listings/search">
+            <input
+              class="form-control me-2 search-input"
+              type="search"
+              placeholder="Search"
+              name="country">
+
+            <button class="btn btn-search" type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              Search
+            </button>
+          </form>
+
+        <% } %>
+
+      </div>
+
+      <!-- Right -->
+      <div class="navbar-nav ms-auto">
+
+        <% if (currRoute === "/listings") { %>
+
+          <a class="nav-link" href="/listings/new">
+            WanderLust Your Home
+          </a>
+
+          <!--<a class="nav-link" href="/listings/liked">
+            ❤️ Liked
+          </a>-->
+
+        <% } %>
+
+        <% if (!currUser) { %>
+
+          <a class="nav-link" href="/signup"><b>SignUp</b></a>
+          <a class="nav-link" href="/login"><b>LogIn</b></a>
+
+        <% } else { %>
+
+          <a class="nav-link d-flex align-items-center" href="/profile">
+    <img
+        src="<%= currUser.profileImage %>"
+        width="35"
+        height="35"
+        class="rounded-circle me-2">
+    <%= %>
+</a>
+
+          <a class="nav-link" href="/logout">
+            <b>LogOut</b>
+          </a>
+
+        <% } %>
+
+      </div>
+
     </div>
   </div>
 </nav>
