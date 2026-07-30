@@ -70,18 +70,11 @@
 
       <!-- Right -->
       <div class="navbar-nav ms-auto">
-
-        <% if (currRoute === "/listings") { %>
-
-          <a class="nav-link" href="/listings/new">
-            WanderLust Your Home
-          </a>
-
-          <!--<a class="nav-link" href="/listings/liked">
-            ❤️ Liked
-          </a>-->
-
-        <% } %>
+<% if (currUser && currUser.username === "delta_studentr") { %>
+  <a class="nav-link" href="/listings/new">
+    WanderLust Your Home
+  </a>
+<% } %>
 
         <% if (!currUser) { %>
 
@@ -90,13 +83,13 @@
 
         <% } else { %>
 
-          <a class="nav-link d-flex align-items-center" href="/profile">
+         <a class="nav-link d-flex align-items-center" href="/profile">
     <img
         src="<%= currUser.profileImage %>"
         width="35"
         height="35"
         class="rounded-circle me-2">
-    <%= %>
+    <%= currUser.username %>
 </a>
 
           <a class="nav-link" href="/logout">

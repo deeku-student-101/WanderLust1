@@ -2,10 +2,12 @@ if(process.env.NODE_ENV!="production"){
 require('dotenv').config();
 }
 console.log(process.env.SECRET);
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const dns = require("dns");
+
+dns.setServers(["8.8.8.8", "8.8.4.4"]);;
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -23,15 +25,18 @@ const userRouter =require("./routes/user.js");
 const bookingRouter = require("./routes/booking.js");
 
 const MONGO_URL = process.env.ATLASDB_URL;
-// DB connect
-main()
-  .then(() => console.log("connected to DB"))
-  .catch((err) => console.log(err));
+
+console.log("SECRET:", process.env.SECRET);
+console.log("Mongo URL:", MONGO_URL);
 
 async function main() {
   await mongoose.connect(MONGO_URL);
+  console.log("✅ Connected to MongoDB");
 }
 
+main()
+  .then(() => console.log("Database Connected"))
+  .catch((err) => console.log("MongoDB Error:", err));
 // MIDDLEWARE
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -105,6 +110,6 @@ app.use((err,req,res,next)=>{
   let { statusCode = 500, message = "Something went wrong!" } = err;
   res.status(statusCode).render("error.ejs",{message});
 });
-app.listen(8080,()=>{
-  console.log("server is listening to port 8080");
+app.listen(8080, () => {
+  console.log("Server is listening on port 8080");
 });

@@ -8,8 +8,12 @@ const multer = require("multer");
 const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
 
-const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
-
+const {
+  isLoggedIn,
+  isOwner,
+  isListingCreator,
+  validateListing,
+} = require("../middleware.js");
 router.get(
   "/search",
   wrapAsync(ListingController.searchListings)
@@ -20,14 +24,19 @@ router.route("/")
 .get(wrapAsync(ListingController.index))
 .post(
   isLoggedIn,
+  isListingCreator,
   validateListing,
   upload.single("listing[image]"),
   wrapAsync(ListingController.createListing)
 );
 
 // NEW FORM
-router.get("/new", isLoggedIn, ListingController.renderNewForm);
-
+router.get(
+  "/new",
+  isLoggedIn,
+  isListingCreator,
+  ListingController.renderNewForm
+);
 // CATEGORY ROUTE
 router.get(
   "/category/:category",
@@ -73,5 +82,4 @@ router.post(
   isLoggedIn,
   wrapAsync(ListingController.likeListing)
 );
-
 module.exports = router;

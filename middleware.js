@@ -54,3 +54,11 @@ module.exports.isReviewAuthor=  async(req, res, next) => {
 return res.redirect(`/listings/${id}`);    }
     next();
 };
+
+module.exports.isListingCreator = (req, res, next) => {
+    if (!req.user || req.user.username !== "delta_studentr") {
+        req.flash("error", "Only delta-student can create listings!");
+        return res.redirect("/listings");
+    }
+    next();
+};
